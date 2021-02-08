@@ -25,10 +25,10 @@ export class SelectedplaylistComponent implements OnInit {
 
   ngOnInit(): void {
     let getIndex = JSON.parse(localStorage.getItem('selectedPlaylist'));
-
     if (getIndex == null) {
       this.router.navigate(['/']);
     } else {
+      this.playlistIndex = getIndex;
       let getPlaylist = JSON.parse(localStorage.getItem('playlist'));
       this.currentPlaylist = getPlaylist[getIndex];
       this.songs = getPlaylist[getIndex]['songs'];
