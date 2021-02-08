@@ -1,0 +1,16 @@
+<div class="container-fluid p-0">
+    <!-- Top nav bar -->
+    <app-navbar></app-navbar>
+
+    <router-outlet></router-outlet>
+</div>
+
+<!-- Common loader -->
+<ngx-ui-loader [bgsColor]="'blue'" [bgsOpacity]="'0.5'" [pbColor]="'blue'" [fgsColor]="'#333'">
+</ngx-ui-loader>
+
+<ngx-alerts></ngx-alerts>
+
+<span class="scroll-top" title="Scroll to top" (click)="scrolltop()" *ngIf="scrollToTop">
+  <i class="fa fa-arrow-up"></i>
+</span>

@@ -1,0 +1,146 @@
+<div class="row mx-0 px-3 mb-5">
+    <div class="col-lg-7 col-md-12 col-xs-12 mb-4">
+        <h3 class="mt-4 mb-3">All songs</h3>
+        <div class="text-right">
+            <div class="form-group search-box">
+                <input type="text" class="form-control" [formControl]="songsearch" name="" id="" autocomplete="off" placeholder="Search songs here..." id="songsSearch" (keypress)="search($event, 'songs')" (keyup)="search($event, 'songs')" />
+            </div>
+        </div>
+        <!-- Songs  -->
+        <app-songs [getSongs]="songs"> </app-songs>
+        <div class="text-center my-4">
+            <button *ngIf="songs.length < tempStorage.length" class="btn btn-primary" (click)="loadSongs(songs.length + 12)">
+        Load more...
+      </button>
+            <div class="no-data-found my-5" *ngIf="songs.length == 0">
+                <img src="./assets/images/page-not-found.svg" alt="No data found" title="No data found" />
+                <p class="text mb-0 font-weight-bold">No Songs found</p>
+            </div>
+            <ng-container *ngIf="songs.length > 0 && songs.length == tempStorage.length">
+                You are at end of the list
+            </ng-container>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 mb-4">
+        <h3 class="mt-4 mb-3">Playlists</h3>
+        <div class="create-playlist">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#create">
+          Create playlist
+        </button>
+        </div>
+        <div class="text-right">
+            <div class="form-group search-box">
+                <input type="text" class="form-control" [formControl]="playlistSearch" name="" id="" autocomplete="off" placeholder="Search playlist here..." id="playlistSearch" (keypress)="search($event, 'playlist')" (keyup)="search($event, 'playlist')" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let playlist of playlists; let index = index">
+                <div class="playlist">
+                    <div class="coverimg">
+                        <img src="./assets/images/playlist.jpg" alt="playlist" title="playlist" />
+                    </div>
+                    <div class="playlist-info">
+                        <span class="view">
+              <a
+                href="javascript:;"
+                title="View Playlist"
+                (click)="selectPlaylist(index)"
+                class="text-info"
+              >
+                <i class="fa fa-eye mr-2"></i> view
+              </a>
+            </span>
+                        <span class="delete">
+              <a
+                href="javascript:;"
+                title="Delete Playlist"
+                (click)="deletePlaylist(index)"
+                class="text-danger"
+              >
+                <i class="fa fa-trash mr-2"></i> delete
+              </a>
+            </span>
+                        <span class="name">
+              <span class="title"> Name: </span> {{ playlist.name }}
+                        </span>
+                        <span class="date">
+              <span class="title"> Created Date </span> {{ playlist.createdDate }}
+                        </span>
+                        <span class="songsList">
+              <span class="title">No of songs </span> {{ playlist.songs.length }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="no-data-found my-5" *ngIf="playlists.length == 0">
+            <img src="./assets/images/page-not-found.svg" alt="No data found" title="No data found" />
+            <p class="text mb-0 font-weight-bold">No Playlist found</p>
+
+
+        </div>
+    </div>
+</div>
+<!-- Create playlist popup  -->
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form [formGroup]="createplaylist">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        Create playlist
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="mr-3 sr-only" for="inlineFormInput">Playlist name :</label
+            >
+            <input
+              type="text"
+              class="form-control mb-2 mr-sm-2 mb-sm-0"
+              id="inlineFormInput"
+              placeholder="Playlist name"
+              autocomplete="off"
+              formControlName="playlistName"
+            />
+            <div
+              class="text-danger small"
+              *ngIf="
+                !createplaylist.controls['playlistName'].valid && submitted
+              "
+            >
+              <div
+                class=""
+                *ngIf="createplaylist.controls['playlistName'].errors.required"
+              >
+                Please enter the playlist name
+              </div>
+              <div
+                class=""
+                *ngIf="createplaylist.controls['playlistName'].errors.pattern"
+              >
+                Please enter the Valid name using only Characters
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="createPLaylist()"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

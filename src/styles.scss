@@ -1,0 +1,347 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 30px;
+}
+
+.no-results {
+    height: 80vh;
+    img {
+        width: 50%;
+    }
+    .back-home {
+        font-size: 24px;
+    }
+}
+
+.menu {
+    background: #fff;
+    box-shadow: 0px 0px 10px rgb(215 215 215 / 69%);
+    position: sticky;
+    top: 0px;
+    transition: 0.5s;
+    &.sticky {
+        z-index: 1;
+        backdrop-filter: saturate(180%) blur(20px);
+        background-color: rgba(228, 228, 228, 0.72);
+    }
+    .logo {
+        width: 30px;
+        margin: 0px 10px;
+    }
+    .icons {
+        width: 20px;
+        vertical-align: -5px;
+        margin: 0 5px;
+    }
+}
+
+.playlist {
+    cursor: pointer;
+    background: #c4c4c403;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(223 223 223 / 30%);
+    .coverimg {
+        border-radius: inherit;
+    }
+    .coverimg img {
+        width: 100%;
+        border-radius: inherit;
+    }
+    .playlist-info {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 20px 0;
+        position: relative;
+        .view,
+        .delete {
+            display: inline-block;
+            position: absolute;
+            top: -15px;
+            padding: 0px 20px;
+            border-right: 0px;
+            font-size: 12px;
+            cursor: pointer;
+            background: transparent;
+            box-shadow: 0px 3px 0px #e3e3e3b5;
+            a {
+                color: black;
+                text-decoration: none;
+                transition: .5s;
+            }
+        }
+        .delete {
+            right: 0px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            // background: #e92c2c;
+        }
+        .view {
+            left: 0px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            // background: #007bff;
+        }
+        span {
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            &.date {
+                font-size: 12px;
+            }
+            .title {
+                color: #bebebe
+            }
+            // &.view,
+            // &.delete {
+            //     display: none;
+            // }
+        }
+    }
+}
+
+.no-data-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+        width: 20%;
+    }
+    .text {
+        font-size: 24px;
+        margin-top: 30px;
+    }
+}
+
+.create-playlist {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+
+.modal-content {
+    border-radius: 0px;
+    border: none;
+    .modal-footer,
+    .modal-header {
+        border: none;
+    }
+}
+
+select.form-control,
+input.form-control {
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+}
+
+button.btn {
+    padding: 3px 20px;
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.scroll-top {
+    display: inline-block;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 16%);
+    cursor: pointer;
+    z-index: 10;
+    i {
+        vertical-align: -5px;
+    }
+}
+
+.song-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 5px;
+    border: 1px solid #fcfcfc;
+    background: #c4c4c403;
+    backdrop-filter: saturate(180%) blur(20px);
+    box-sizing: border-box;
+    transition: .2s border;
+    &:hover {
+        box-shadow: 0px 0px 10px rgb(243 243 243 / 62%)
+    }
+    &.active {
+        border-left: 5px solid #08df46;
+    }
+    .select {
+        font-size: 20px;
+    }
+    .thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+    .singer,
+    .song-title {
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .song-title {
+        width: 250px;
+    }
+    .singer {
+        width: 150px;
+    }
+    .title {
+        font-size: 12px;
+        color: #bebebe;
+    }
+    .duration {
+        font-size: 12px;
+    }
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 200px;
+    }
+}
+
+.playlist-add {
+    display: flex;
+    align-items: center;
+    .selected-songs,
+    .selectall,
+    select,
+    button {
+        font-size: 16px
+    }
+    .selected-songs {
+        display: inline-block;
+        padding: 3px 20px;
+        font-weight: 500;
+    }
+    .selectall {
+        cursor: pointer;
+    }
+}
+
+.player {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: #fff;
+    z-index: 5;
+    box-shadow: 0px 0px 3px rgb(0 0 0 / 30%);
+}
+
+.search-box {
+    display: inline-block;
+}
+
+.search-box input {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #acacac;
+    border-radius: 0;
+}
+
+.tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.playlist-information {
+    span {
+        font-size: 14px;
+        &.title {
+            font-weight: 500;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    h3 {
+        font-size: 22px;
+    }
+    .search-box {
+        display: block !important;
+    }
+    .song-container {
+        font-size: 14px;
+        .select {
+            font-size: 14px;
+        }
+        .thumbnail {
+            display: none;
+        }
+        .song-title {
+            width: 100px;
+        }
+        .singer {
+            width: 75px;
+        }
+        .title {
+            font-size: 12px;
+            color: #bebebe;
+        }
+        .controls {
+            width: 100px;
+        }
+    }
+    .playlist-add {
+        flex-direction: column;
+        align-items: unset;
+        .selected-songs,
+        select,
+        button,
+        .selectall {
+            margin: 10px 0 !important;
+            font-size: 16px;
+        }
+        .selected-songs {
+            box-shadow: none;
+        }
+    }
+    .playlist-information {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 48px !important;
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0px !important;
+        }
+        span,
+        span .title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+    .no-data-found img {
+        width: 50%;
+        margin-top: 30px;
+    }
+}

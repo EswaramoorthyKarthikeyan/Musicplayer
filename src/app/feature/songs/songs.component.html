@@ -1,0 +1,106 @@
+<div class="my-3 playlist-add" *ngIf="tempSongs.length > 0">
+    <span class="mr-3 ml-5 selectall" title="select all songs" (click)="selectallSongs()">
+    <i
+      class="fa mr-2"
+      [ngClass]="selectAll ? 'fa-check-square-o' : 'fa-square-o'"
+    ></i>
+    Select all songs
+  </span>
+
+    <span class="selected-songs mr-3">
+    {{ tempSongs.length }} songs Selected
+  </span>
+
+    <div class="mr-3">
+        <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="playlist" (change)="selectPlaylist($event)">
+      <option value="" selected>Select playlist</option>
+      <option
+        *ngFor="let playlist of playlists; let index = index"
+        value="{{ index }}"
+      >
+        {{ playlist.name }}
+      </option>
+    </select>
+    </div>
+    <button class="btn btn-primary" (click)="addToPlaylist()">
+    Add to playlist
+  </button>
+</div>
+<div class="song-container" *ngFor="let song of getSongs; let index = index">
+    <span class="select" (click)="selectSong(index)">
+    <i
+      class="fa"
+      [ngClass]="song?.status == 'active' ? 'fa-check-square-o' : 'fa-square-o'"
+      aria-hidden="true"
+    ></i>
+  </span>
+    <div class="">
+        <img class="img img-responsive thumbnail" src="{{ song.thumbnailUrl }}" alt="{{ song.title }}" title="{{ song.title }}" />
+    </div>
+    <span class="song-title mb-0" title=" {{ song.title }}">
+    <span class="title">Title</span><br /> {{ song.title }}
+    </span>
+    <span class="singer mb-0">
+    <span class="title"> Singers</span> <br />{{ song.singer }}</span>
+    <span class="duration mb-0">
+    <span class="title">Duration</span> <br />{{ song.duration }}</span>
+    <span class="">
+    <a
+      href="javascript:;"
+      title="Play"
+      class="text-primary"
+      (click)="playSong(song)"
+    >
+      <i class="fa fa-play" aria-hidden="true"></i>
+    </a>
+    <a
+      href="javascript:;"
+      title="Delet from playlist"
+      (click)="deleteFromPlaylist(song)"
+      *ngIf="delete"
+      class="text-danger ml-4"
+      ><i class="fa fa-trash" aria-hidden="true"></i>
+    </a>
+  </span>
+</div>
+
+<ng-container *ngIf="getSongs.length == 0">
+    <div class="no-data-found my-5">
+        <img src="./assets/images/page-not-found.svg" alt="No data found" title="No data found" />
+        <p class="text mb-0 font-weight-bold">Playlist is empty</p>
+    </div>
+</ng-container>
+
+<!-- song Player -->
+<div class="player" *ngIf="selectedSong != null">
+    <div class="song-container">
+        <div class="">
+            <img class="img img-responsive thumbnail" src="{{ selectedSong.thumbnailUrl }}" alt="{{ selectedSong.title }}" title="{{ selectedSong.title }}" />
+        </div>
+        <span class="song-title mb-0 font-weight-bold" title=" {{ selectedSong.title }}">
+      {{ selectedSong.title }}
+    </span>
+        <span class="singer font-weight-bold mb-0"> {{ selectedSong.singer }}</span>
+        <span class="duration font-weight-bold mb-0">
+      {{ selectedSong.duration }}</span
+    >
+
+    <span class="controls">
+      <i class="fa fa-backward" aria-hidden="true" title="backward"></i>
+      <i
+        class="fa fa-step-backward"
+        aria-hidden="true"
+        title="step-backward"
+      ></i>
+      <i
+        class="fa"
+        [ngClass]="play ? 'fa-pause' : 'fa-play'"
+        aria-hidden="true"
+        (click)="play = !play"
+        title="play / pause"
+      ></i>
+      <i class="fa fa-step-forward" aria-hidden="true" title="step-forward"></i>
+      <i class="fa fa-forward" aria-hidden="true" title="forward"></i>
+    </span>
+    </div>
+</div>
