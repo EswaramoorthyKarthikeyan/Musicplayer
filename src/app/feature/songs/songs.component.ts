@@ -37,7 +37,6 @@ export class SongsComponent implements OnInit {
     );
 
     this.playlists = JSON.parse(localStorage.getItem('playlist'));
-
     this.appService.selectedSong.subscribe((song: any) => {
       this.selectedSong = song;
     });
@@ -76,8 +75,6 @@ export class SongsComponent implements OnInit {
       // update valus in playlist variable
       this.playlists[this.selectedPlaylist - 1]['songs'] = getUniqueSongs;
 
-      getUniqueSongs;
-
       this.appService.playList.next(this.playlists);
 
       // Update playlist in local storage
@@ -110,14 +107,14 @@ export class SongsComponent implements OnInit {
     // Delete song from playlist
     this.getSongs = this.getSongs.filter((data) => data.id != song.id);
 
-    this.appService.selectedPlaylist.subscribe((playlistIndex: number) => {
-      this.playlists[playlistIndex]['songs'] = this.getSongs;
-      // update deleted song into the storage
+    let getIndex = JSON.parse(localStorage.getItem('selectedPlaylist'));
 
-      this.appService.playList.next(this.playlists);
+    this.playlists[getIndex]['songs'] = this.getSongs;
+    // update deleted song into the storage
 
-      localStorage.setItem('playlist', JSON.stringify(this.playlists));
-    });
+    this.appService.playList.next(this.playlists);
+
+    localStorage.setItem('playlist', JSON.stringify(this.playlists));
   }
 
   selectSong(index: number) {

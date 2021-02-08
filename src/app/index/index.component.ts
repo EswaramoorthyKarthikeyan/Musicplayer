@@ -5,6 +5,7 @@ import { Playlist, songs } from '../playlist.interface';
 import { AlertService } from 'ngx-alerts';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -30,7 +31,7 @@ export class IndexComponent implements OnInit {
   public submitted: boolean = false;
 
   public playlists: Playlist[] = [];
-  
+
   createplaylist = new FormGroup({
     playlistName: new FormControl('', [
       Validators.required,
@@ -243,7 +244,9 @@ export class IndexComponent implements OnInit {
 
   selectPlaylist(index: number) {
     if (this.playlists[index]['songs'].length > 0) {
-      this.appService.selectedPlaylist.next(index);
+      // this.appService.selectedPlaylist.next(index);
+      localStorage.setItem('selectedPlaylist', '' + index);
+
       this.router.navigate(['/selectedplaylist']);
     } else
       this.alertService.info(

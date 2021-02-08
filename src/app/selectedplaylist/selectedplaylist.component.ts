@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AppServiceService } from 'src/app/app-service.service';
 import { Playlist, songs } from '../playlist.interface';
+
 @Component({
   selector: 'app-selectedplaylist',
   templateUrl: './selectedplaylist.component.html',
@@ -17,18 +19,25 @@ export class SelectedplaylistComponent implements OnInit {
 
   currentPlaylist: Playlist = {};
 
+  playlistSubscription: Subscription;
+
+  playlistSubscribe: Subscription;
+
   ngOnInit(): void {
-    this.appService.playList.subscribe((playlist) => {
-      this.appService.selectedPlaylist.subscribe((playlistIndex: number) => {
-        if (playlistIndex == null) {
-          this.router.navigate(['/']);
-        } else {
-          this.playlistIndex = playlistIndex;
-          this.currentPlaylist = playlist[playlistIndex];
-          this.songs = this.currentPlaylist['songs'];
-        }
+    let getIndex = JSON.parse(localStorage.getItem('selectedPlaylist'));
+
+    if (getIndex == null) {
+      this.router.navigate(['/']);
+    } else {
+      let getPlaylist = JSON.parse(localStorage.getItem('playlist'));
+      this.currentPlaylist = getPlaylist[getIndex];
+      this.songs = getPlaylist[getIndex]['songs'];
+
+      this.appService.playList.subscribe((playlist: Playlist[]) => {
+        if (playlist.length == 0) {
+        } else this.currentPlaylist = playlist[getIndex];
       });
-    });
+    }
   }
 
   ShuffleSongs(songs: any, index: number) {
