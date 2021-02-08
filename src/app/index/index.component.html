@@ -12,10 +12,7 @@
             <button *ngIf="songs.length < tempStorage.length" class="btn btn-primary" (click)="loadSongs(songs.length + 12)">
         Load more...
       </button>
-            <div class="no-data-found my-5" *ngIf="songs.length == 0">
-                <img src="./assets/images/page-not-found.svg" alt="No data found" title="No data found" />
-                <p class="text mb-0 font-weight-bold">No Songs found</p>
-            </div>
+
             <ng-container *ngIf="songs.length > 0 && songs.length == tempStorage.length">
                 You are at end of the list
             </ng-container>
@@ -25,8 +22,8 @@
         <h3 class="mt-4 mb-3">Playlists</h3>
         <div class="create-playlist">
             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#create">
-          Create playlist
-        </button>
+        Create playlist
+      </button>
         </div>
         <div class="text-right">
             <div class="form-group search-box">
@@ -77,8 +74,6 @@
         <div class="no-data-found my-5" *ngIf="playlists.length == 0">
             <img src="./assets/images/page-not-found.svg" alt="No data found" title="No data found" />
             <p class="text mb-0 font-weight-bold">No Playlist found</p>
-
-
         </div>
     </div>
 </div>
