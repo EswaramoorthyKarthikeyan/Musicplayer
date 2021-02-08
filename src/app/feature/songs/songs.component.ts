@@ -43,7 +43,6 @@ export class SongsComponent implements OnInit {
     });
   }
 
- 
   addToPlaylist() {
     this.selectedPlaylist == 0 ? 1 : this.selectedPlaylist;
     if (this.selectedPlaylist) {
@@ -114,6 +113,9 @@ export class SongsComponent implements OnInit {
     this.appService.selectedPlaylist.subscribe((playlistIndex: number) => {
       this.playlists[playlistIndex]['songs'] = this.getSongs;
       // update deleted song into the storage
+
+      this.appService.playList.next(this.playlists);
+
       localStorage.setItem('playlist', JSON.stringify(this.playlists));
     });
   }

@@ -18,15 +18,16 @@ export class SelectedplaylistComponent implements OnInit {
   currentPlaylist: Playlist = {};
 
   ngOnInit(): void {
-    this.appService.selectedPlaylist.subscribe((playlistIndex: number) => {
-      if (playlistIndex == null) {
-        this.router.navigate(['/']);
-      } else {
-        let getPlaylist = JSON.parse(localStorage.getItem('playlist'));
-        this.playlistIndex = playlistIndex;
-        this.currentPlaylist = getPlaylist[playlistIndex];
-        this.songs = getPlaylist[playlistIndex]['songs'];
-      }
+    this.appService.playList.subscribe((playlist) => {
+      this.appService.selectedPlaylist.subscribe((playlistIndex: number) => {
+        if (playlistIndex == null) {
+          this.router.navigate(['/']);
+        } else {
+          this.playlistIndex = playlistIndex;
+          this.currentPlaylist = playlist[playlistIndex];
+          this.songs = this.currentPlaylist['songs'];
+        }
+      });
     });
   }
 
